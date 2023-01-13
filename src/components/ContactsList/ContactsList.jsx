@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import {
   Title,
   List,
@@ -8,7 +9,8 @@ import {
   Warning,
 } from './ContactsList.styled';
 
-export const ContactsList = ({ contacts, deleteContact }) => {
+export const ContactsList = ({deleteContact }) => {
+  const contacts = useSelector(state => state.contacts);
   return (
     <>
       <Title>Contacts 📃</Title>

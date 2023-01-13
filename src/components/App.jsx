@@ -13,22 +13,7 @@ import { InputSearch } from './InputSearch/InputSearch';
 export const App = () => {
   const [contacts, setContacts] = useState(() => JSON.parse(localStorage.getItem('contacts')) ?? []);
   const [filter, setFilter] = useState('');
-
-  useEffect(()=>{
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  },[contacts, filter])
-
-  const addContact = newContact => {
-    const isInList = contacts.some(
-      contact => contact.name === newContact.name
-    );
-    if (isInList) {
-      alert('Already in list!');
-      return;
-    }
-    setContacts(prevState => [...prevState, newContact]);
-  };
-
+  
   const deleteContact = id => {
     setContacts(prevState => prevState.filter(contact => contact.id !== id));
   };

@@ -2,7 +2,9 @@ import { Formik, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { addContact } from 'redux/phoneSlice';
+import { useState } from 'react';
 import { Label, Input, Wrapper, ErrorMess, Button } from './Forms.styled';
 
 const FormError = ({ name }) => {
@@ -36,10 +38,34 @@ const phoneSchema = yup.object().shape({
     .required(),
 });
 
-export const LoginForm = ({ onAddContact }) => {
+export const LoginForm = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts);
+  const [nameValue, setNameValue] = useState('');
+  const [numberValue, setNumberValue] = useState('');
+  
+const inputNameChange = event => {
+    setNameValue(event.target.value);
+  };
+  const inputPhoneChange = event => {
+    setNumberValue(event.target.value);
+  };
+
+
   const handleSubmit = (values, { resetForm }) => {
-    values.id = nanoid();
-    onAddContact(values);
+   
+    const isAtList = contacts.find(contact => contact.name === nameValue);
+    if (isAtList) {
+      alert('Already in list!');
+      return;
+    }
+    const contact = {
+      name: nameValue,
+      phone: numberValue,
+      id: nanoid(),
+    };
+    const action = addContact(contact);    
+    dispatch(action);
     resetForm();
   };
 
@@ -57,6 +83,7 @@ export const LoginForm = ({ onAddContact }) => {
             name="name"
             id="name"
             placeholder=" "
+            onChange={inputNameChange}
           />
           <Label htmlFor="name"> Name</Label>
           <FormError name="name" />
@@ -68,6 +95,7 @@ export const LoginForm = ({ onAddContact }) => {
             name="number"
             id="number"
             placeholder=" "
+            onChange={inputPhoneChange}
           />
           <Label htmlFor="number"> Number</Label>
           <FormError name="number" />
