@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyleComponent } from 'styles/GlobalStyles';
 import { theme } from 'styles/theme';
