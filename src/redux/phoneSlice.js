@@ -3,13 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 // const tasksInitialState = [];
 const phoneSlice = createSlice({
   name: 'phone',
-  initialState: [],
+  initialState: { items: [] },
   reducers: {
     addContact(state, { payload }) {
-      return [...state, payload];
+      state.items = [...state.items, payload];
     },
     deleteContact(state, { payload }) {
-      return state.filter(todo => todo.id !== payload);
+      state.items = state.items.filter(todo => todo.id !== payload);
     },
   },
 });

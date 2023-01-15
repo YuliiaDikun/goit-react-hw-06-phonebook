@@ -8,7 +8,7 @@ import { Label, Input, Wrapper, ErrorMess, Button } from './Forms.styled';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(state => state.contacts.items);
 
   const FormError = ({ name }) => {
     return (

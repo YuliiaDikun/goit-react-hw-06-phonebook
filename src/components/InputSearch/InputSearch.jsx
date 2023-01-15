@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { filterContacts } from 'redux/filterSlice';
 import { useDispatch } from 'react-redux';
 import { Input, Title } from './InputSearch.styled';
-export const InputSearch = ({ onChange }) => {
+export const InputSearch = () => {
   const dispatch = useDispatch();
   return (
     <>

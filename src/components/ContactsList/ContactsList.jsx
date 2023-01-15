@@ -12,7 +12,7 @@ import {
 } from './ContactsList.styled';
 
 export const ContactsList = () => {
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(state => state.contacts.items);
   const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
   const visibleTodos = contacts.filter(contact =>
