@@ -1,4 +1,4 @@
-import { createSlice, current } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 // const tasksInitialState = [];
 const phoneSlice = createSlice({
@@ -8,10 +8,12 @@ const phoneSlice = createSlice({
     addContact(state, { payload }) {
       return [...state, payload];
     },
-    deleteContact(state, action) {},
+    deleteContact(state, { payload }) {
+      return state.filter(todo => todo.id !== payload);
+    },
   },
 });
-console.log('Phone slice', phoneSlice);
+
 export const { addContact, deleteContact } = phoneSlice.actions;
 
 export const phoneReducer = phoneSlice.reducer;

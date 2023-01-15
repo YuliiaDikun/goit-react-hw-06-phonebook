@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { deleteContact } from 'redux/phoneSlice';
+import { useDispatch } from 'react-redux';
 import {
   Title,
   List,
@@ -9,21 +11,32 @@ import {
   Warning,
 } from './ContactsList.styled';
 
-export const ContactsList = ({deleteContact }) => {
+export const ContactsList = () => {
   const contacts = useSelector(state => state.contacts);
+  const filter = useSelector(state => state.filter);
+  const dispatch = useDispatch();
+  const visibleTodos = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
   return (
     <>
       <Title>Contacts 📃</Title>
-      {contacts.length ? (
+      {visibleTodos.length ? (
         <List>
-          {contacts.map(({ id, name, number }) => {
+          {visibleTodos.map(({ id, name, number }) => {
             return (
               <Item key={id}>
                 <Contact>
                   {name} {number}
                 </Contact>
 
-                <Button onClick={() => deleteContact(id)} type="button">
+                <Button
+                  onClick={() => {
+                    const action = deleteContact(id);
+                    dispatch(action);
+                  }}
+                  type="button"
+                >
                   ❌
                 </Button>
               </Item>

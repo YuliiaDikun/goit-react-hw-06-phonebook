@@ -11,32 +11,17 @@ import { ContactsList } from './ContactsList/ContactsList';
 import { InputSearch } from './InputSearch/InputSearch';
 
 export const App = () => {
-  const [contacts, setContacts] = useState(() => JSON.parse(localStorage.getItem('contacts')) ?? []);
-  const [filter, setFilter] = useState('');
-  
-  const deleteContact = id => {
-    setContacts(prevState => prevState.filter(contact => contact.id !== id));
-  };
-  const filterContacts = () => {
-    return contacts.filter(contact => contact.name.includes(filter));
-  };
-  const contactsToMarkUp = filterContacts();
   return (
     <ThemeProvider theme={theme}>
       <Container>
         <Title />
-        <LoginForm onAddContact={addContact} />
+        <LoginForm />
 
-        <InputSearch
-          onChange={e => setFilter(e.target.value)}
-        />
-        <ContactsList
-          contacts={contactsToMarkUp}
-          deleteContact={deleteContact}
-        />
+        <InputSearch />
+        <ContactsList />
       </Container>
 
       <GlobalStyleComponent />
     </ThemeProvider>
   );
-}
+};
